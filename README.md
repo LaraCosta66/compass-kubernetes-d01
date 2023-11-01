@@ -1,53 +1,32 @@
 ## Desafio 01 - Trilha DevSecOps na CompassUOL - Sprint 3
 ![Logo compass](./images/compass.png)
 
-## Neste desafio farei a instalação do minikube para usar o Kubernetes
+## Neste desafio farei a instalação do K3s para usar o Kubernetes
+**K3s é uma distribuição multifuncional que pode ser usada em qualquer ambiente.**
 ### Pré-requisitos:
 - VM com Oracle Linux 8
-- 2 CPUs
--  Aproximadamente 20gb de disco 
 
- 
+## Instalação K3s
 
-## Instalação minikube
+[K3s Guide](https://docs.k3s.io/quick-start)
 
-### Instalar a versão mais estável do **minikube**, para **Linux x86-64**, usando **download binário**.
-
-[Download minikube outras versões SO](https://minikube.sigs.k8s.io/docs/start/)
-
+1. Isso fará o download do binário e registrará um serviço do sistema para que o K3s seja iniciado automaticamente quando o host for reinicializado:
 ```
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-```
-![instalar minikube](./images/minikube-install.png)
-
-### Vá para o diretório **/usr/local/bin**
-
-![diretorio](./images/diretorio.png)
-
-### Dê permissão ao usuario para usar o DOCKER
-```
-sudo usermod -aG docker $USER && newgrp docker
-```
-### Iniciar o **Minikube** usando o driver do **Docker**
-```
-minikube start --driver=docker
-```
-![start minikube](./images/minikube-start.png)
-
-**Tornar o docker o driver padrão:**
-```
-minikube config set driver docker
+curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
 ```
 
-## Intereja com o Cluster
+![instalar k3s](./images/k3s-install.png)
 
-### Baixe a versão apropriada do **kubectl**
+### Verifique o status do k3s
 ```
-minikube kubectl -- get po -A
+sudo systemctl status k3s
 ```
+![status k3s](./images/status.png)
 
-1. Se você já tem **kubectl** instalado:
+## Interaja com o Cluster
+
+1. Use o comando para interagir com seu cluster com a versão empacotada do Kubectl:
 ```
-kubectl get po -A
+ sudo k3s kubectl get nodes
 ```
+![kubectl](./images/k3s-kubectl.png)
